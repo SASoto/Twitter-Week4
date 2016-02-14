@@ -17,7 +17,7 @@ class TweetCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-            userName.text = tweet.name
+            userName.text = tweet.text
         }
     }
     
