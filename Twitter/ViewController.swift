@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +21,20 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func onLogin(sender: AnyObject) {
 
+        TwitterClient.sharedInstance.loginWithCompletion() {
+         
+            (user: User?, error: NSError?) in
+            if user != nil {
+            self.performSegueWithIdentifier("loginSegue", sender: self)
+            } else {
+                
+            }
+        }
+        
+    }
 
 }
 
