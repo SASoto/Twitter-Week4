@@ -17,15 +17,30 @@ class TweetCell: UITableViewCell {
     
     var tweet: Tweet! {
         didSet {
-            userName.text = tweet.text
-        }
+            userDescription.text = tweet.text
+            userName.text = tweet.user?.name
+            userAdd.text = "@\(tweet.user!.screenname)"
+            userImage?.setImageWithURL(tweet.user!.profileImageUrl!)
+            }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        userImage.layer.cornerRadius = 3
+        userImage.clipsToBounds = true
+        
+        userName.preferredMaxLayoutWidth = userName.frame.size.width
     }
 
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        userName.preferredMaxLayoutWidth = userName.frame.size.width
+        
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

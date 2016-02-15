@@ -21,6 +21,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
         
         TwitterClient.sharedInstance.homeTimelineWithCompletion(nil, completion: {(tweets, error) -> () in
             self.tweets = tweets
@@ -51,6 +57,51 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        /*let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()*/
+        
+        TwitterClient.sharedInstance.homeTimelineWithCompletion(nil, completion: {(tweets, error) -> () in
+                    self.tweets = tweets
+                })
+
+                self.tableView.reloadData()
+                
+                // Tell the refreshControl to stop spinning
+                refreshControl.endRefreshing()
+    }
+    
+    /*var isMoreDataLoading = false
+    
+    func loadMoreData() {
+        
+        TwitterClient.sharedInstance.homeTimelineWithCompletion(nil, completion: {(tweets, error) -> () in
+            self.tweets = tweets
+        })
+        
+        self.isMoreDataLoading = false
+        self.tableView.reloadData()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+       
+        if(!isMoreDataLoading) {
+            
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+            
+                isMoreDataLoading = true
+                
+                loadMoreData()
+            }
+        }
+    }
+    */
     @IBAction func onLogout(sender: AnyObject) {
         
         User.currentUser?.logout()
