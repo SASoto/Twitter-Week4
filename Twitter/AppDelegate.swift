@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if User.currentUser != nil {
             print("Current user detected \(User.currentUser?.name)")
             
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            //var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNav") as! UINavigationController
             
             window?.rootViewController = vc
         }
@@ -34,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func userDidLogout() {
         
         var vc = storyboard.instantiateInitialViewController()! as UIViewController
+        
+        //var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as! UINavigationController
+        
         window?.rootViewController = vc
     }
     
