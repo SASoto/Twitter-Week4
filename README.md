@@ -57,7 +57,7 @@ Implementing infinitescrolling, the retweet and favorites count, and the timesta
     See the License for the specific language governing permissions and
     limitations under the License.
     
-# Project 5 - *Name of App Here*
+# Project 5 - *TwitterApp*
 
 Time spent: **8** hours spent in total
 
